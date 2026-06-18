@@ -4,6 +4,7 @@ from django.db import models
 class Post (models.Model):
     title=models.CharField(max_length=100)
     content=models.TextField(max_length=800)
+    image=models.ImageField(upload_to='blog/', blank=True, null=True)
     counted_views=models.IntegerField(default=0)
     status=models.BooleanField(default=False)
     published_date=models.DateTimeField(null=True)

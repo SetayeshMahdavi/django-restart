@@ -18,7 +18,14 @@ def blog (request):
 
 
 
-def single_blog (request):
-    return render(request,"blog/blog-single.html")
+def single_blog (request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.counted_views += 1
+    post.save()
 
+    context = {
+        'post': post
+    }
+
+    return render(request, "blog/blog-single.html", context)
 
