@@ -5,7 +5,7 @@ app_name="blog"
 
 
 urlpatterns = [
-    path('/', blog,name="blog"),
-    path('single/',single_blog,name="single"),
+    path('', blog,name="blog"),
+    path('<int:post_id>/',single_blog,name="single"),
 ]
  
