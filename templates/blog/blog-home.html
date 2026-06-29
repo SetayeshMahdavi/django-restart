@@ -92,7 +92,11 @@
 							<div class="single-post row">
 								<div class="col-lg-3 col-md-3 meta-details">
 									<ul class="tags">
-										<li><a href="#">Blog</a></li>
+										{% for cat in post.category.all %}
+										<li><a href="#">{{ cat.name }}</a></li>
+										{% empty %}
+										<li><a href="#">Uncategorized</a></li>
+										{% endfor %}
 									</ul>
 									<div class="user-details row">
 										<p class="user-name col-lg-12 col-md-12 col-6">
@@ -229,48 +233,16 @@
 								<div class="single-sidebar-widget post-category-widget">
 									<h4 class="category-title">Post Catgories</h4>
 									<ul class="cat-list">
+										{% for cat in categories %}
 										<li>
 											<a href="#" class="d-flex justify-content-between">
-												<p>Technology</p>
-												<p>37</p>
+												<p>{{ cat.name }}</p>
+												<p>{{ cat.post_count }}</p>
 											</a>
 										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Lifestyle</p>
-												<p>24</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Fashion</p>
-												<p>59</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Art</p>
-												<p>29</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Food</p>
-												<p>15</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Architecture</p>
-												<p>09</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Adventure</p>
-												<p>44</p>
-											</a>
-										</li>															
+										{% empty %}
+										<li><p>هنوز کتگوری‌ای ثبت نشده</p></li>
+										{% endfor %}
 									</ul>
 								</div>	
 								<div class="single-sidebar-widget newsletter-widget">

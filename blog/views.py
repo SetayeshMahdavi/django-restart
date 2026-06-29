@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django .http import HttpResponse
+from django.db.models import Count
 from .models import *
 
 
@@ -9,9 +10,15 @@ def blog (request):
     ).order_by('-published_date')
 
 
+    categories = Category.objects.annotate(
+        post_count=Count('post')
+    )
+
+
 
     context = {
-        'posts': posts
+        'posts': posts ,
+        'categories': categories,
     }
     
     return render(request, 'blog/blog-home.html', context)
@@ -23,8 +30,14 @@ def single_blog (request, post_id):
     post.counted_views += 1
     post.save()
 
+
+    categories = Category.objects.annotate(
+        post_count=Count('post')
+    )
+
     context = {
-        'post': post
+        'post': post,
+        'categories': categories,
     }
 
     return render(request, "blog/blog-single.html", context)
