@@ -34,10 +34,26 @@ def single_blog (request, post_id):
     categories = Category.objects.annotate(
         post_count=Count('post')
     )
+    
+
+    next_post = Post.objects.filter(
+        status=True,
+        published_date__gt=post.published_date
+    ).order_by('published_date').first()
+
+
+
+    prev_post = Post.objects.filter(
+        status=True,
+        published_date__lt=post.published_date
+    ).order_by('-published_date').first()
+
 
     context = {
         'post': post,
         'categories': categories,
+        'next_post': next_post,
+        'prev_post': prev_post,
     }
 
     return render(request, "blog/blog-single.html", context)
