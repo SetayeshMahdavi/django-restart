@@ -13,7 +13,7 @@ class Category(models.Model ):
 
 class Post (models.Model):
     title=models.CharField(max_length=100)
-    content=models.TextField(max_length=800)
+    content=models.TextField(max_length=2000)
     image=models.ImageField(upload_to='blog/', blank=True, null=True)
     counted_views=models.IntegerField(default=0)
     status=models.BooleanField(default=False)
@@ -27,3 +27,8 @@ class Post (models.Model):
 
     def __str__(self):
         return f"{self.title} (ID : {self.id})"
+
+   
+   #Unused: truncation is handled in the template, but this method can be used instead.
+    def short_content(self):
+        return self.content[:100]
