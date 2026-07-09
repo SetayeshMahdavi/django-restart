@@ -3615,6 +3615,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-align: center;
 }
 
+.widget-wrap .user-info-widget img.author-avatar {
+  width: 200px !important;
+  height: 200px !important;
+  max-width: 200px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
 .widget-wrap .user-info-widget a h4 {
   margin-top: 40px;
   margin-bottom: 5px;

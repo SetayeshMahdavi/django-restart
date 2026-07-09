@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post , Category
+from blog.models import Post , Category, Profile
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -9,5 +9,11 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status','author')
     search_fields = ['title', 'content']
 
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bio')
+    search_fields = ['user__username']
+
 admin.site.register(Category)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Profile, ProfileAdmin)
