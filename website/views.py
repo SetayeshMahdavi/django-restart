@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
 
 
 def index_view(request):
@@ -12,4 +13,13 @@ def about_view(request):
 
 
 def contact_view(request):
-     return render(request,"website/contact.html")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'پیام شما با موفقیت ارسال شد.')
+            return redirect('website:contact')
+    else:
+        form = ContactForm()
+
+    return render(request, "website/contact.html", {'form': form})
