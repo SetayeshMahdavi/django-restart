@@ -1,0 +1,15 @@
+{% load static %}
+{% if author %}
+<div class="single-sidebar-widget user-info-widget">
+	<img class="author-avatar" width="200" height="200" src="{% if author.profile.avatar %}{{ author.profile.avatar.url }}{% else %}{% static 'img/blog/user-info.png' %}?v=2{% endif %}" alt="{{ author.username }}">
+	<p>
+		{{ author.profile.bio|default:"Blog writer" }}
+	</p>
+	<ul class="social-links">
+		{% if author.profile.facebook %}<li><a href="{{ author.profile.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>{% endif %}
+		{% if author.profile.twitter %}<li><a href="{{ author.profile.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>{% endif %}
+		{% if author.profile.github %}<li><a href="{{ author.profile.github }}" target="_blank"><i class="fa fa-github"></i></a></li>{% endif %}
+		{% if author.profile.behance %}<li><a href="{{ author.profile.behance }}" target="_blank"><i class="fa fa-behance"></i></a></li>{% endif %}
+	</ul>
+</div>
+{% endif %}
