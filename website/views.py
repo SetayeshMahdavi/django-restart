@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ContactForm
+from .forms import *
 
 
 def index_view(request):
@@ -16,8 +16,9 @@ def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'پیام شما با موفقیت ارسال شد.')
+            contact=form.save(commit=False)
+            contact.save()
+            messages.success(request, "Done")
             return redirect('website:contact')
     else:
         form = ContactForm()

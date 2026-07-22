@@ -24,7 +24,6 @@ class Category(models.Model ):
         return self.name
     
 
-
 class Post (models.Model):
     title=models.CharField(max_length=100)
     content=models.TextField(max_length=2000)
@@ -43,6 +42,6 @@ class Post (models.Model):
         return f"{self.title} (ID : {self.id})"
 
    
-   #Unused: truncation is handled in the template, but this method can be used instead.
+    #Unused: truncation is handled in the template, but this method can be used instead.
     # def short_content(self):
     #     return self.content[:100]
