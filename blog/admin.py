@@ -14,6 +14,18 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio')
     search_fields = ['user__username']
 
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'post', 'parent', 'active', 'created_date')
+    list_filter = ('active', 'created_date')
+    search_fields = ['author__username', 'message']
+    actions = ['approve_comments']
+
+    @admin.action(description='Approve selected comments')
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
+
 admin.site.register(Category)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Comment, CommentAdmin)
