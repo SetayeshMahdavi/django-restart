@@ -42,9 +42,6 @@ class Post (models.Model):
         return f"{self.title} (ID : {self.id})"
 
    
-    #Unused: truncation is handled in the template, but this method can be used instead.
-    # def short_content(self):
-    #     return self.content[:100]
 
 
 class Comment(models.Model):
