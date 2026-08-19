@@ -2,12 +2,25 @@ from django.contrib import admin
 from blog.models import *
 
 
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+    fields = ('author', 'message', 'parent', 'active', 'created_date')
+    readonly_fields = ('author', 'created_date')
+    can_delete = True
+
+
 class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     empty_value_display = '-empty-'
-    list_display = ('title', 'author', 'counted_views', 'status', 'published_date', 'created_date')
+    list_display = ('title', 'author', 'counted_views', 'comment_count', 'status', 'published_date', 'created_date')
     list_filter = ('status','author')
     search_fields = ['title', 'content']
+    inlines = [CommentInline]
+
+    @admin.display(description='Comments')
+    def comment_count(self, obj):
+        return obj.comments.count()
 
 
 class ProfileAdmin(admin.ModelAdmin):

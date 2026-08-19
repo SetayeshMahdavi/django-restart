@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
-from django .http import HttpResponse
-from django.db.models import Count
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count, F, Q
 from django.contrib import messages
 from .models import *
 from .forms import CommentForm
@@ -9,7 +8,9 @@ from .forms import CommentForm
 def blog (request):
     posts = Post.objects.filter(
         status=True
-    ).order_by('-published_date')
+    ).order_by('-published_date').annotate(
+        comment_count=Count('comments', filter=Q(comments__active=True, comments__parent__isnull=True))
+    )
 
 
     categories = Category.objects.annotate(
@@ -30,9 +31,9 @@ def blog (request):
 
 
 def single_blog (request, post_id):
-    post = Post.objects.get(id=post_id)
-    post.counted_views += 1
-    post.save()
+    post = get_object_or_404(Post, id=post_id)
+    post.counted_views = F('counted_views') + 1
+    post.save(update_fields=['counted_views'])
 
 
     categories = Category.objects.annotate(

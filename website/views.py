@@ -16,9 +16,7 @@ def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact=form.save(commit=False)
-            contact.name="......"
-            contact.save()
+            contact=form.save()
             messages.success(request, "Done")
             return redirect('website:contact')
     else:

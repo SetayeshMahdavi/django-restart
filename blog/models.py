@@ -41,8 +41,11 @@ class Post (models.Model):
     def __str__(self):
         return f"{self.title} (ID : {self.id})"
 
-   
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('blog:single', kwargs={'post_id': self.id})
 
+   
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
