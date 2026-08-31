@@ -3014,6 +3014,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: rgba(4, 9, 30, 0.4);
 }
 
+.banner-logo {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
 .about-content {
   margin-top: 70px;
   padding: 90px 0px;
