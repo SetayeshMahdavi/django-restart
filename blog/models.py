@@ -44,7 +44,7 @@ class Post (models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('blog:single', kwargs={'post_id': self.id})
-
+                   
    
 
 class Comment(models.Model):

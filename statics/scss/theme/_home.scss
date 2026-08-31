@@ -110,7 +110,7 @@
 /*-------- Start Banner Area ------------*/
 
 .banner-area {
-    background:url(../img/hero-bg.jpg) center;
+     background:url(../img/hero-bg.jpg?v=2) center;
     background-size:cover;
     .overlay-bg{
         background:rgba(#04091e,.40);
@@ -558,7 +558,7 @@
 }
 
 .about-banner {
-   background:url(../img/top-banner.jpg) center;
+   background:url(../img/top-banner.jpg?v=2) center;
    background-size:cover;
    .overlay-bg{
     background: rgba(#04091e,.40);
