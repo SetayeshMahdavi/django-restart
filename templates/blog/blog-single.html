@@ -1,325 +1,157 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{{ post.title }}{% endblock %}
+
 {%block content%}
-		  
-			<!-- start banner Area -->
-			<section class="relative about-banner">	
-				<div class="overlay overlay-bg"></div>
-				<div class="container">				
-					<div class="row d-flex align-items-center justify-content-center">
-						<div class="about-content col-lg-12">
-							<h1 class="text-white">
-								Blog Details Page				
-							</h1>	
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog Details Page</a></p>
-						</div>	
+
+		<section class="relative about-banner">
+			<div class="overlay overlay-bg"></div>
+			<div class="container">
+				<div class="row d-Flex align-items-center justify-content-center">
+					<div class="about-content col-lg-12">
+						<h1 class="text-white">
+							{{ post.title }}
+						</h1>
+						<p class="text-white link-nav"><a href="{% url 'blog:blog' %}">Home </a>  <span class="lnr lnr-arrow-right"></span> <a href="{% url 'blog:blog' %}">Blog </a>  <span class="lnr lnr-arrow-right"></span> {{ post.title }}</p>
 					</div>
 				</div>
-			</section>
-			<!-- End banner Area -->					  
-			
-			<!-- Start post-content Area -->
-			<section class="post-content-area single-post-area">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 posts-list">
-							<div class="single-post row">
-								<div class="col-lg-12">
-									<div class="feature-img">
-										{% if post.image %}
-										<img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
-										{% else %}
-										<img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %} " alt="">
-										{% endif %}
-									</div>									
-								</div>
-								<div class="col-lg-3  col-md-3 meta-details">
-									<ul class="tags">
-										{% for cat in post.category.all %}
-										<li><a href="#">{{ cat.name }}</a></li>
-										{% empty %}
-										<li><a href="#">Uncategorized</a></li>
-										{% endfor %}
-									</ul>
-									<div class="user-details row">
-										<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{ post.author.username|default:"Unknown" }}</a> <span class="lnr lnr-user"></span></p>
-										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ post.published_date|date:"d M, Y" }}</a> <span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{ post.counted_views }} Views</a> <span class="lnr lnr-eye"></span></p>
-										<ul class="social-links col-lg-12 col-md-12 col-6">
-											<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li><a href="#"><i class="fa fa-github"></i></a></li>
-											<li><a href="#"><i class="fa fa-behance"></i></a></li>
-										</ul>																				
-									</div>
-								</div>
-								<div class="col-lg-9 col-md-9">
-									<h3 class="mt-20 mb-20">{{ post.title }}</h3>
-									<p>
-										{{ post.content }}
-									</p>
-								</div>
-								<div class="col-lg-12">
-									<div class="quotes">
-										MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.										
-									</div>
-									<div class="row mt-30 mb-30">
-										<div class="col-6">
-											<img class="img-fluid" src="{% static 'img/blog/post-img1.jpg' %} " alt="">
-										</div>
-										<div class="col-6">
-											<img class="img-fluid" src="{% static 'img/blog/post-img2.jpg' %} " alt="">
-										</div>	
-										<div class="col-lg-12 mt-30">
-											<p>
-												MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-											</p>
-											<p>
-												MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-											</p>											
-										</div>									
-									</div>
-								</div>
-							</div>
-							<div class="navigation-area">
-								<div class="row">
-									<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-										{% if prev_post %}
-											<div class="thumb">
-												<a href="{% url 'blog:single' prev_post.id %}">
-													{% if prev_post.image %}
-														<img class="img-fluid" src="{{ prev_post.image.url }}" alt="{{ prev_post.title }}">
-													{% else %}
-														<img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt="{{ prev_post.title }}">
-													{% endif %}
-												</a>
-											</div>
-											<div class="arrow">
-												<a href="{% url 'blog:single' prev_post.id %}"><span class="lnr text-white lnr-arrow-left"></span></a>
-											</div>
-											<div class="detials">
-												<p>Prev Post</p>
-												<a href="{% url 'blog:single' prev_post.id %}"><h4>{{ prev_post.title }}</h4></a>
-											</div>
-										{% endif %}
-									</div>
-									<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-										{% if next_post %}
-											<div class="detials">
-												<p>Next Post</p>
-												<a href="{% url 'blog:single' next_post.id %}"><h4>{{ next_post.title }}</h4></a>
-											</div>
-											<div class="arrow">
-												<a href="{% url 'blog:single' next_post.id %}"><span class="lnr text-white lnr-arrow-right"></span></a>
-											</div>
-											<div class="thumb">
-												<a href="{% url 'blog:single' next_post.id %}">
-													{% if next_post.image %}
-														<img class="img-fluid" src="{{ next_post.image.url }}" alt="{{ next_post.title }}">
-													{% else %}
-														<img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt="{{ next_post.title }}">
-													{% endif %}
-												</a>
-											</div>
-										{% endif %}
-									</div>
-								</div>
-							</div>
-							<div class="comments-area">
-								<h4>{{ comments|length }} Comments</h4>
-								{% for comment in comments %}
-								<div class="comment-list">
-                                    <div class="single-comment justify-content-between d-flex">
-                                        <div class="user justify-content-between d-flex">
-                                            <div class="thumb">
-                                                {% if comment.author.profile.avatar %}
-                                                    <img src="{{ comment.author.profile.avatar.url }}" alt="" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
-                                                {% else %}
-                                                    <img src="{% static 'img/blog/c1.jpg' %} " alt="" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
-                                                {% endif %}
-                                            </div>
-                                            <div class="desc">
-                                                <h5><a href="#">{{ comment.author.username }}</a></h5>
-                                                <p class="date">{{ comment.created_date|date:"F j, Y \a\t g:i a" }} </p>
-                                                <p class="comment">
-                                                    {{ comment.message }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        {% if request.user.is_authenticated %}
-                                        <div class="reply-btn">
-                                               <a href="{% url 'blog:single' post.id %}?reply_to={{ comment.id }}" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                    {% for reply in comment.replies.all %}
-                                    <div class="comment-list left-padding">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    {% if reply.author.profile.avatar %}
-                                                        <img src="{{ reply.author.profile.avatar.url }}" alt="" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
-                                                    {% else %}
-                                                        <img src="{% static 'img/blog/c1.jpg' %} " alt="" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">{{ reply.author.username }}</a></h5>
-                                                    <p class="date">{{ reply.created_date|date:"F j, Y \a\t g:i a" }} </p>
-                                                    <p class="comment">
-                                                        {{ reply.message }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-								{% empty %}
-								<p>No comments yet. Be the first to comment!</p>
-								{% endfor %}
-							</div>
-							<div class="comment-form">
-								<h4>{% if reply_to %}Reply to Comment{% else %}Leave a Comment{% endif %}</h4>
-								{% if request.user.is_authenticated %}
-								<p>Posting as <strong>{{ request.user.username }}</strong></p>
-								<form method="post" action="{% url 'blog:single' post.id %}">
-									{% csrf_token %}
-									{% if reply_to %}
-									<input type="hidden" name="parent" value="{{ reply_to }}">
+			</div>
+		</section>
+
+		<section class="post-content-area single-post-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 posts-list">
+						<div class="single-post row">
+							<div class="col-lg-12">
+								<div class="feature-img">
+									{% if post.image %}
+									<img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
+									{% else %}
+									<img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="">
 									{% endif %}
-									<div class="form-group">
-										{{ form.message }}
-									</div>
-									<button type="submit" class="primary-btn text-uppercase">Post Comment</button>
-								</form>
-								{% if form.errors %}
-								<div class="alert alert-danger mt-3">
-									{% for field in form %}{% for error in field.errors %}<p>{{ error }}</p>{% endfor %}{% endfor %}
 								</div>
-								{% endif %}
-								{% else %}
-								<p style="margin-top:15px;">You must <a href="{% url 'admin:login' %}">login</a> to post a comment.</p>
-								{% endif %}
+							</div>
+							<div class="col-lg-3 col-md-3 meta-details">
+								<ul class="tags">
+									{% for cat in post.category.all %}
+									<li><a href="#">{{ cat.name }}</a></li>
+									{% empty %}
+									<li><a href="#">Uncategorized</a></li>
+									{% endfor %}
+								</ul>
+								<div class="user-details row">
+									<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{ post.author.username|default:"Unknown" }}</a> <span class="lnr lnr-user"></span></p>
+									<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ post.published_date|date:"d M, Y" }}</a> <span class="lnr lnr-calendar-full"></span></p>
+									<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{ post.counted_views }} Views</a> <span class="lnr lnr-eye"></span></p>
+									<ul class="social-links col-lg-12 col-md-12 col-6">
+										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fa fa-github"></i></a></li>
+										<li><a href="#"><i class="fa fa-behance"></i></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-9 col-md-9">
+								<h3 class="mt-20 mb-20">{{ post.title }}</h3>
+								<p>
+									{{ post.content }}
+								</p>
 							</div>
 						</div>
-						<div class="col-lg-4 sidebar-widgets">
-							<div class="widget-wrap">
-								<div class="single-sidebar-widget search-widget">
-									<form class="search-form" action="#">
-			                            <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'" >
-			                            <button type="submit"><i class="fa fa-search"></i></button>
-			                        </form>
-								</div>
-								
-								{% include 'blog/author.html' %}
-
-								<div class="single-sidebar-widget popular-post-widget">
-									<h4 class="popular-title">Popular Posts</h4>
-									<div class="popular-post-list">
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="{% static 'img/blog/pp1.jpg' %} " alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="{% static 'img/blog/pp2.jpg' %} " alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="{% static 'img/blog/pp3.jpg' %} " alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="{% static 'img/blog/pp4.jpg' %} " alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Asteroids telescope</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>															
+						<div class="navigation-area">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+									{% if prev_post %}
+									<div class="thumb">
+										<a href="{% url 'blog:single' prev_post.id %}">
+											{% if prev_post.image %}
+											<img class="img-fluid" src="{{ prev_post.image.url }}" alt="{{ prev_post.title }}">
+											{% else %}
+											<img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt="{{ prev_post.title }}">
+											{% endif %}
+										</a>
 									</div>
+									<div class="arrow">
+										<a href="{% url 'blog:single' prev_post.id %}"><span class="lnr text-white lnr-arrow-left"></span></a>
+									</div>
+									<div class="detials">
+										<p>Prev Post</p>
+										<a href="{% url 'blog:single' prev_post.id %}"><h4>{{ prev_post.title }}</h4></a>
+									</div>
+									{% endif %}
 								</div>
-								<div class="single-sidebar-widget ads-widget">
-									<a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %} " alt=""></a>
+								<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+									{% if next_post %}
+									<div class="detials">
+										<p>Next Post</p>
+										<a href="{% url 'blog:single' next_post.id %}"><h4>{{ next_post.title }}</h4></a>
+									</div>
+									<div class="arrow">
+										<a href="{% url 'blog:single' next_post.id %}"><span class="lnr text-white lnr-arrow-right"></span></a>
+									</div>
+									<div class="thumb">
+										<a href="{% url 'blog:single' next_post.id %}">
+											{% if next_post.image %}
+											<img class="img-fluid" src="{{ next_post.image.url }}" alt="{{ next_post.title }}">
+											{% else %}
+											<img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt="{{ next_post.title }}">
+											{% endif %}
+										</a>
+									</div>
+									{% endif %}
 								</div>
-								<div class="single-sidebar-widget post-category-widget">
-									<h4 class="category-title">Post Catgories</h4>
-									<ul class="cat-list">
-										{% for cat in categories %}
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>{{ cat.name }}</p>
-												<p>{{ cat.post_count }}</p>
-											</a>
-										</li>
-										{% empty %}
-										<li><p>هنوز کتگوری‌ای ثبت نشده</p></li>
-										{% endfor %}
-									</ul>
-								</div>	
-								<div class="single-sidebar-widget newsletter-widget">
-									<h4 class="newsletter-title">Newsletter</h4>
-									<p>
-										Here, I focus on a range of items and features that we use in life without
-										giving them a second thought.
-									</p>
-									<div class="form-group d-flex flex-row">
-									   <div class="col-autos">
-									      <div class="input-group">
-									        <div class="input-group-prepend">
-									          <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i>
-											</div>
-									        </div>
-									        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" >
-									      </div>
-									    </div>
-									    <a href="#" class="bbtns">Subcribe</a>
-									</div>	
-									<p class="text-bottom">
-										You can unsubscribe at any time
-									</p>								
-								</div>
-								<div class="single-sidebar-widget tag-cloud-widget">
-									<h4 class="tagcloud-title">Tag Clouds</h4>
-									<ul>
-										<li><a href="#">Technology</a></li>
-										<li><a href="#">Fashion</a></li>
-										<li><a href="#">Architecture</a></li>
-										<li><a href="#">Fashion</a></li>
-										<li><a href="#">Food</a></li>
-										<li><a href="#">Technology</a></li>
-										<li><a href="#">Lifestyle</a></li>
-										<li><a href="#">Art</a></li>
-										<li><a href="#">Adventure</a></li>
-										<li><a href="#">Food</a></li>
-										<li><a href="#">Lifestyle</a></li>
-										<li><a href="#">Adventure</a></li>
-									</ul>
-								</div>								
 							</div>
 						</div>
 					</div>
-				</div>	
-			</section>
-			<!-- End post-content Area -->
-			
+					<div class="col-lg-4 sidebar-widgets">
+						<div class="widget-wrap">
+							<div class="single-sidebar-widget search-widget">
+								<form class="search-form" action="#">
+				                            <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'" >
+				                            <button type="submit"><i class="fa fa-search"></i></button>
+				                        </form>
+							</div>
 
+							{% include 'blog/author.html' %}
 
-			{% endblock %}
+							<div class="single-sidebar-widget post-category-widget">
+								<h4 class="category-title">Post Categories</h4>
+								<ul class="cat-list">
+									{% for cat in categories %}
+									<li>
+										<a href="#" class="d-flex justify-content-between">
+											<p>{{ cat.name }}</p>
+											<p>{{ cat.post_count }}</p>
+										</a>
+									</li>
+									{% empty %}
+									<li><p>No categories yet</p></li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="single-sidebar-widget tag-cloud-widget">
+								<h4 class="tagcloud-title">Tag Clouds</h4>
+								<ul>
+									<li><a href="#">Technology</a></li>
+									<li><a href="#">Fashion</a></li>
+									<li><a href="#">Architecture</a></li>
+									<li><a href="#">Fashion</a></li>
+									<li><a href="#">Food</a></li>
+									<li><a href="#">Technology</a></li>
+									<li><a href="#">Lifestyle</a></li>
+									<li><a href="#">Art</a></li>
+									<li><a href="#">Adventure</a></li>
+									<li><a href="#">Food</a></li>
+									<li><a href="#">Lifestyle</a></li>
+									<li><a href="#">Adventure</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{% endblock %}
